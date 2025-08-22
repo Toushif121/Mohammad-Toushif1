@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Toushif - Engineering Student & Tech Enthusiast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Custom breakpoints for better mobile support */
+        @media (min-width: 475px) {
+            .xs\:w-24 { width: 6rem; }
+            .xs\:h-24 { height: 6rem; }
+            .xs\:w-56 { width: 14rem; }
+            .xs\:h-56 { height: 14rem; }
+            .xs\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
+            .xs\:text-base { font-size: 1rem; line-height: 1.5rem; }
+            .xs\:text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+            .xs\:text-5xl { font-size: 3rem; line-height: 1; }
+            .xs\:flex { display: flex; }
+            .xs\:flex-row { flex-direction: row; }
+            .xs\:inline { display: inline; }
+            .xs\:px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .xs\:py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+            .xs\:gap-3 { gap: 0.75rem; }
+            .xs\:flex-none { flex: none; }
+        }
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-color: #1a202c;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --secondary-color: #a78bfa;
+            --accent-color: #fb7185;
+            --text-color: #f8fafc;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .card-bg {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-animation {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+        
+        .floating-action-btn {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 640px) {
+            .floating-action-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+        
+        .floating-action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .code-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: slide 30s linear infinite;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .floating-code {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            animation: floatUp 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(1deg); }
+            66% { transform: translateY(-20px) rotate(-1deg); }
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+        
+        @keyframes floatUp {
+            0% { 
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0;
+            }
+        }
+        
+        .particle-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .particle-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.08) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 1.5px, transparent 1.5px);
+            background-size: 60px 60px, 40px 40px, 80px 80px;
+            animation: particleFloat 20s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-60px) translateY(-60px); }
+        }
+        
+        .geometric-bg {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            position: relative;
+        }
+        
+        .geometric-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(30deg, rgba(255,255,255,0.1) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.1) 87.5%, rgba(255,255,255,0.1)),
+                linear-gradient(150deg, rgba(255,255,255,0.1) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.1) 87.5%, rgba(255,255,255,0.1));
+            background-size: 80px 140px;
+            animation: geometricShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes geometricShift {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            50% { transform: translateX(20px) translateY(-20px) rotate(1deg); }
+        }
+        
+        .circuit-bg {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            position: relative;
+        }
+        
+        .circuit-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 2px, transparent 2px),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 100px 100px, 60px 60px;
+            animation: circuitPulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes circuitPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .skill-bar {
+            transition: width 2s ease-in-out;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #667eea;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #667eea; }
+        }
+        
+        .code-editor {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .code-editor-header {
+            background: #2d2d30;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .code-editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .code-editor-content {
+            padding: 20px;
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.5;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .syntax-keyword { color: #569cd6; }
+        .syntax-string { color: #ce9178; }
+        .syntax-comment { color: #6a9955; }
+        .syntax-number { color: #b5cea8; }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a202c;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 4px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-color);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 12px;
+            width: 2px;
+            height: calc(100% + 18px);
+            background: var(--border-color);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .visitor-counter {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .github-stats {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .quiz-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .quiz-option {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        /* Dark mode specific overrides */
+        [data-theme="dark"] .quiz-option:hover {
+            background: rgba(129, 140, 248, 0.2);
+        }
+        
+        [data-theme="dark"] .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.2);
+        }
+        
+        [data-theme="dark"] .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .testimonial-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--primary-color);
+            opacity: 0.3;
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        
+        .company-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 75px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            font-size: 16px;
+        }
+        
+        @media (min-width: 640px) {
+            .dark-mode-toggle {
+                bottom: 90px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Profile Picture Styles */
+        .profile-picture {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-picture:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-picture::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            border-radius: 50%;
+            z-index: -1;
+            animation: profileGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes profileGlow {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.02); }
+        }
+        
+        .image-upload-area {
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .image-upload-area:hover {
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.05);
+        }
+        
+        /* Mobile menu hover styles */
+        .mobile-menu-link:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        [data-theme="dark"] .mobile-menu-link:hover {
+            background: rgba(129, 140, 248, 0.2);
+        }
+        
+        /* Enhanced Navigation Styles */
+        .nav-container {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-text {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-tooltip {
+            font-size: 10px;
+            z-index: 1000;
+        }
+        
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
+        }
+        
+        .nav-indicator {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link.visited .nav-indicator {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .quick-actions-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quick-actions-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .quick-actions-btn:hover::before {
+            left: 100%;
+        }
+        
+        #quick-actions-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+        
+        .resume-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .resume-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+        
+        .resume-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Live Status Bar Animation */
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .status-bar {
+            animation: statusPulse 3s ease-in-out infinite;
+        }
+        
+        /* Navigation Progress Indicator */
+        .nav-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-animation"></div>
+        <p class="text-white text-xl mt-4">Loading Portfolio...</p>
+        <p class="text-white/70 text-sm mt-2">Preparing amazing experience</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <span id="theme-icon">🌙</span>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action-btn" onclick="scrollToTop()">
+        ↑
+    </div>
+
+    <!-- Visitor Counter -->
+    <div style="position: fixed; top: 70px; right: 10px; z-index: 1000;" class="hidden sm:block">
+        <div class="visitor-counter text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2">
+            👥 <span id="visitor-count">1,247</span> <span class="hidden md:inline">visitors</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm nav-container">
+        <!-- Live Status Bar -->
+        <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white text-center py-1 text-xs overflow-hidden">
+            <div class="flex items-center justify-center space-x-2 sm:space-x-4 px-2">
+                <div class="flex items-center space-x-1 flex-shrink-0">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs">🟢 Available</span>
+                </div>
+                <div class="hidden xs:flex items-center space-x-1 flex-shrink-0">
+                    <span class="text-xs">📍 Kolkata</span>
+                </div>
+                <div class="hidden sm:flex items-center space-x-1 flex-shrink-0">
+                    <span id="live-time" class="text-xs">⏰ Loading...</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-2 sm:py-3">
+            <div class="flex justify-between items-center">
+                <!-- Animated Logo -->
+                <div class="logo-container group cursor-pointer flex-shrink-0" onclick="scrollToTop()">
+                    <div class="text-lg sm:text-xl lg:text-2xl font-bold text-purple-600 relative">
+                        <span class="logo-text">MT</span>
+                        <div class="logo-tooltip absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                            Mohammad Toushif
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation with Progress Indicators -->
+                <div class=" lg:flex space-x-4 xl:space-x-6 relative">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="home">
+                        <span class="hidden xl:inline">🏠 Home</span>
+                        <span class="xl:hidden">🏠</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="about">
+                        <span class="hidden xl:inline">👨‍💻 About</span>
+                        <span class="xl:hidden">👨‍💻</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="skills">
+                        <span class="hidden xl:inline">🎯 Skills</span>
+                        <span class="xl:hidden">🎯</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#projects" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="projects">
+                        <span class="hidden xl:inline">💼 Projects</span>
+                        <span class="xl:hidden">💼</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#achievements" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="achievements">
+                        <span class="hidden xl:inline">🏆 Awards</span>
+                        <span class="xl:hidden">🏆</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#blog" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="blog">
+                        <span class="hidden xl:inline">📝 Blog</span>
+                        <span class="xl:hidden">📝</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 transition-colors text-sm xl:text-base relative whitespace-nowrap" data-section="contact">
+                        <span class="hidden xl:inline">📞 Contact</span>
+                        <span class="xl:hidden">📞</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </div>
+                
+                <!-- Enhanced Action Buttons -->
+                <div class="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
+                    <!-- Quick Actions Dropdown -->
+                    <div class="hidden relative  xl:block">
+                        <button onclick="toggleQuickActions()" class="quick-actions-btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 lg:px-3 py-1.5 lg:py-2 rounded-lg transition-colors text-xs lg:text-sm flex items-center space-x-1">
+                            <span>⚡</span>
+                            <span class="hidden 2xl:inline">Quick</span>
+                        </button>
+                        <div id="quick-actions-menu" class="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 w-44 lg:w-48 opacity-0 invisible transition-all duration-200 transform scale-95 z-50">
+                            <a href="mailto:mdtoushif173@gmail.com" class="block px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
+                                📧 Send Email
+                            </a>
+                            <a href="tel:+91 8541008670" class="block px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
+                                📱 Call Me
+                            </a>
+                            <button onclick="sharePortfolio()" class="block w-full text-left px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
+                                🔗 Share Portfolio
+                            </button>
+                            <button onclick="scheduleCall()" class="block w-full text-left px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
+                                📅 Schedule Call
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced Resume Button -->
+                    <button onclick="downloadResume()" class="resume-btn bg-purple-600 text-white px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-purple-700 transition-all duration-300 text-xs sm:text-sm relative overflow-hidden group flex-shrink-0">
+                        <span class="relative z-10">
+                            <span class="hidden sm:inline lg:hidden xl:inline">📄 Resume</span>
+                            <span class="sm:hidden lg:inline xl:hidden">📄</span>
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-700 relative flex-shrink-0">
+                        <div id="hamburger-icon" class="w-4 h-4 sm:w-5 sm:h-5 flex flex-col justify-center space-y-1">
+                            <div class="w-full h-0.5 bg-current transition-all duration-300"></div>
+                            <div class="w-full h-0.5 bg-current transition-all duration-300"></div>
+                            <div class="w-full h-0.5 bg-current transition-all duration-300"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg border-t border-gray-200 transform -translate-y-full opacity-0 invisible transition-all duration-300 z-40">
+                <div class="px-3 sm:px-4 py-3 sm:py-4 space-y-2 max-h-screen overflow-y-auto">
+                    <a href="#home" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        🏠 Home
+                    </a>
+                    <a href="#about" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        👨‍💻 About
+                    </a>
+                    <a href="#skills" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        🎯 Skills
+                    </a>
+                    <a href="#projects" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        💼 Projects
+                    </a>
+                    <a href="#achievements" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        🏆 Achievements
+                    </a>
+                    <a href="#blog" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        📝 Blog
+                    </a>
+                    <a href="#contact" onclick="closeMobileMenu()" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-700 hover:bg-purple-50 hover:text-purple-600 text-sm">
+                        📞 Contact
+                    </a>
+                    
+                    <!-- Mobile Quick Actions -->
+                    <div class="pt-2 mt-2 border-t border-gray-200 space-y-2">
+                        <a href="mailto:mdtoushif173@gmail.com.com" class="mobile-menu-link block py-2.5 px-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-50 text-sm">
+                            📧 Send Email
+                        </a>
+                         <a href="tel:+91 8541008670" class="block px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
+                            📱 Call Me
+                       </a>
+                            <button onclick="sharePortfolio()" class="block w-full text-left px-3 lg:px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors">
+                            🔗 Share Portfolio
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Menu Footer -->
+                    <div class="pt-3 mt-3 border-t border-gray-200">
+                        <div class="text-xs text-center text-gray-500">
+                            Mohammad Toushif - Portfolio 2025
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg min-h-screen flex items-center justify-center text-white pt-16 sm:pt-20">
+        <div class="code-pattern"></div>
+        <div class="floating-elements" id="floating-elements"></div>
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 text-center animate-fade-in relative z-10 w-full">
+            
+            <!-- Profile Picture Section - MOBILE RESPONSIVE -->
+            <div class="mb-4 sm:mb-6 lg:mb-8">
+                <!-- 📱 MOBILE: 80px → 📺 DESKTOP: 192px -->
+                <div class="profile-picture w-20 h-20 xs:w-24 xs:h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 mx-auto mb-2 sm:mb-3 lg:mb-4 rounded-full bg-white/20 backdrop-blur-sm border-2 sm:border-4 border-white/30 overflow-hidden shadow-2xl">
+                    <!-- Your Profile Image -->
+                    <img id="profile-image" 
+                        src="Screenshot_2024-10-01-00-11-24-029_com.instagram.android - Edited.jpg" 
+                         alt="Mohammad Toushif - Engineering Student" 
+                         class="w-full h-full object-cover"
+                         onerror="showProfileFallback()">
+                    
+                    <!-- Fallback if image doesn't load -->
+                    <div id="profile-fallback" class="w-full h-full flex items-center justify-center text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl hidden">
+                        👨‍💻
+                    </div>
+                </div>
+                
+            
+            <!-- Main Heading - Responsive Typography -->
+            <h1 class="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-2 sm:mb-3 md:mb-4 lg:mb-6 leading-tight px-2">
+                Hi, I'm <span class="typing-animation block xs:inline">Mohammad Toushif</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl mb-3 sm:mb-4 md:mb-6 lg:mb-8 text-white/90 px-2">
+                Engineering Student & Tech Enthusiast
+            </p>
+            
+            <!-- Description -->
+            <p class="text-xs xs:text-sm sm:text-base md:text-lg mb-4 sm:mb-6 md:mb-8 lg:mb-12 text-white/80 max-w-xs xs:max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto px-3 sm:px-2 lg:px-0 leading-relaxed">
+                B.Tech student in Electronics & Communication Engineering with expertise in Java development, digital marketing, and creative design solutions.
+            </p>
+            
+            <!-- Achievement Badges - Mobile Optimized -->
+            <div class="mb-4 sm:mb-6 lg:mb-8 flex flex-wrap justify-center gap-1 sm:gap-2 px-2 sm:px-4">
+                <div class="achievement-badge text-xs flex-shrink-0">🏆 Top Performer</div>
+                <div class="achievement-badge text-xs flex-shrink-0">💻 Java Certified</div>
+                <div class="achievement-badge text-xs flex-shrink-0">🎨 Design Expert</div>
+                <div class="achievement-badge text-xs flex-shrink-0">📊 Marketing Pro</div>
+            </div>
+            
+            <!-- Action Buttons - Mobile First -->
+            <div class="flex flex-col xs:flex-row gap-2 xs:gap-3 sm:gap-4 justify-center px-3 sm:px-4 lg:px-0 max-w-md mx-auto">
+                <button onclick="scrollToSection('projects')" class="bg-white text-purple-600 px-4 xs:px-5 sm:px-6 md:px-8 py-2.5 xs:py-3 sm:py-3 md:py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-xs xs:text-sm sm:text-base flex-1 xs:flex-none whitespace-nowrap">
+                    View My Projects
+                </button>
+                <button onclick="scrollToSection('contact')" class="border-2 border-white text-white px-4 xs:px-5 sm:px-6 md:px-8 py-2.5 xs:py-3 sm:py-3 md:py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors text-xs xs:text-sm sm:text-base flex-1 xs:flex-none whitespace-nowrap">
+                    Get In Touch
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 sm:py-16 lg:py-20 particle-bg relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">About Me</h2>
+                    <p class="text-white/90 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                        I'm Mohammad Toushif, currently pursuing B.Tech in Electronics & Communication Engineering from Budge Budge Institute of Technology in Kolkata. I have a strong foundation in technology with a Diploma in Computer Science & Engineering from Brainware University, Barasat.
+                    </p>
+                    <p class="text-white/90 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
+                        My passion lies in combining technical skills with creativity. I enjoy developing Java applications, creating engaging digital marketing campaigns, and designing visual content. When I'm not coding, you'll find me playing cricket or badminton!
+                    </p>
+                    
+                    <!-- GitHub Stats -->
+                    <div class="github-stats mb-6 sm:mb-8">
+                        <h3 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4" style="color: var(--text-color)">GitHub Statistics</h3>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4 text-sm">
+                            <div class="text-center sm:text-left">
+                                <div class="text-xl sm:text-2xl font-bold text-green-500" id="github-repos">23</div>
+                                <div class="text-xs sm:text-sm" style="color: var(--text-color); opacity: 0.7;">Repositories</div>
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <div class="text-xl sm:text-2xl font-bold text-blue-500" id="github-commits">156</div>
+                                <div class="text-xs sm:text-sm" style="color: var(--text-color); opacity: 0.7;">Commits</div>
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <div class="text-xl sm:text-2xl font-bold text-purple-500" id="github-stars">42</div>
+                                <div class="text-xs sm:text-sm" style="color: var(--text-color); opacity: 0.7;">Stars</div>
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <div class="text-xl sm:text-2xl font-bold text-orange-500" id="github-followers">89</div>
+                                <div class="text-xs sm:text-sm" style="color: var(--text-color); opacity: 0.7;">Followers</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills Progress -->
+                    <div class="space-y-3 sm:space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1 sm:mb-2">
+                                <span class="text-white font-medium text-sm sm:text-base">Java Programming</span>
+                                <span class="text-white/80 text-sm">90%</span>
+                            </div>
+                            <div class="bg-white/20 rounded-full h-2">
+                                <div class="skill-bar bg-yellow-400 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1 sm:mb-2">
+                                <span class="text-white font-medium text-sm sm:text-base">Digital Marketing</span>
+                                <span class="text-white/80 text-sm">85%</span>
+                            </div>
+                            <div class="bg-white/20 rounded-full h-2">
+                                <div class="skill-bar bg-cyan-400 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1 sm:mb-2">
+                                <span class="text-white font-medium text-sm sm:text-base">Creative Design (Canva)</span>
+                                <span class="text-white/80 text-sm">88%</span>
+                            </div>
+                            <div class="bg-white/20 rounded-full h-2">
+                                <div class="skill-bar bg-green-400 h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1 sm:mb-2">
+                                <span class="text-white font-medium text-sm sm:text-base">Data Structures & Algorithms</span>
+                                <span class="text-white/80 text-sm">75%</span>
+                            </div>
+                            <div class="bg-white/20 rounded-full h-2">
+                                <div class="skill-bar bg-orange-400 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center order-1 lg:order-2">
+                    <div class="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 mx-auto bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 sm:mb-8">
+                        🎓
+                    </div>
+                    
+                    <!-- Learning Journey Timeline -->
+                    <div class="text-left max-w-sm sm:max-w-md mx-auto">
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 text-center lg:text-left">Learning Journey</h3>
+                        <div class="timeline-item">
+                            <div class="text-white font-semibold text-sm sm:text-base">B.Tech ECE</div>
+                            <div class="text-white/70 text-xs sm:text-sm">Budge Budge Institute of Technology</div>
+                            <div class="text-white/50 text-xs">2022 - Present</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="text-white font-semibold text-sm sm:text-base">Diploma CSE</div>
+                            <div class="text-white/70 text-xs sm:text-sm">Brainware University</div>
+                            <div class="text-white/50 text-xs">2019 - 2022</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="text-white font-semibold text-sm sm:text-base">Java Certification</div>
+                            <div class="text-white/70 text-xs sm:text-sm">Oracle Certified</div>
+                            <div class="text-white/50 text-xs">2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Assessment Quiz -->
+    <section id="skills" class="py-12 sm:py-16 lg:py-20" style="background-color: var(--bg-color);">
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6">
+            <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4" style="color: var(--text-color)">Skills Assessment</h2>
+                <p class="max-w-2xl mx-auto text-sm sm:text-base px-2" style="color: var(--text-color); opacity: 0.7;">
+                    Test my knowledge with this interactive quiz! See how well I understand programming concepts.
+                </p>
+            </div>
+            
+            <div class="quiz-container" id="quiz-container">
+                <div class="text-center mb-4 sm:mb-6">
+                    <h3 class="text-lg sm:text-xl font-bold mb-2" style="color: var(--text-color)">Java Programming Quiz</h3>
+                    <p class="text-xs sm:text-sm" style="color: var(--text-color); opacity: 0.7;">Question <span id="question-number">1</span> of 5</p>
+                </div>
+                
+                <div id="quiz-content">
+                    <div class="mb-4 sm:mb-6">
+                        <h4 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4 px-2" style="color: var(--text-color)" id="question-text">
+                            What is the correct way to declare a variable in Java?
+                        </h4>
+                        <div id="quiz-options" class="space-y-2 sm:space-y-3">
+                            <div class="quiz-option text-sm sm:text-base" onclick="selectAnswer(0)">int x = 5;</div>
+                            <div class="quiz-option text-sm sm:text-base" onclick="selectAnswer(1)">variable x = 5;</div>
+                            <div class="quiz-option text-sm sm:text-base" onclick="selectAnswer(2)">x = 5;</div>
+                            <div class="quiz-option text-sm sm:text-base" onclick="selectAnswer(3)">declare x = 5;</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="nextQuestion()" id="next-btn" class="bg-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 text-sm sm:text-base" disabled>
+                            Next Question
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="quiz-results" class="hidden text-center">
+                    <div class="text-4xl sm:text-6xl mb-3 sm:mb-4">🎉</div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2" style="color: var(--text-color)">Quiz Complete!</h3>
+                    <p class="text-base sm:text-lg mb-3 sm:mb-4" style="color: var(--text-color)">Score: <span id="final-score">0</span>/5</p>
+                    <button onclick="restartQuiz()" class="bg-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Code Editor -->
+    <section class="py-20 geometric-bg relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Live Code Editor</h2>
+                <p class="text-white/90 max-w-2xl mx-auto">
+                    See my coding skills in action! Try editing this Java code and see the output.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="code-editor">
+                    <div class="code-editor-header">
+                        <div class="code-editor-dot bg-red-500"></div>
+                        <div class="code-editor-dot bg-yellow-500"></div>
+                        <div class="code-editor-dot bg-green-500"></div>
+                        <span class="text-white text-sm ml-2">Main.java</span>
+                    </div>
+                    <div class="code-editor-content">
+                        <textarea id="code-input" class="w-full h-64 bg-transparent text-white resize-none outline-none" spellcheck="false">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        
+        // Try changing this message
+        String name = "Mohammad Toushif";
+        System.out.println("Developer: " + name);
+        
+        // Calculate experience
+        int years = 3;
+        System.out.println("Experience: " + years + " years");
+    }
+}</textarea>
+                    </div>
+                </div>
+                
+                <div class="code-editor">
+                    <div class="code-editor-header">
+                        <div class="code-editor-dot bg-red-500"></div>
+                        <div class="code-editor-dot bg-yellow-500"></div>
+                        <div class="code-editor-dot bg-green-500"></div>
+                        <span class="text-white text-sm ml-2">Output</span>
+                        <button onclick="runCode()" class="ml-auto bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
+                            ▶ Run
+                        </button>
+                    </div>
+                    <div class="code-editor-content">
+                        <div id="code-output" class="text-green-400 font-mono">
+                            Click "Run" to execute the code...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 circuit-bg relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">My Projects</h2>
+                <p class="text-white/90 max-w-2xl mx-auto">
+                    A showcase of projects with detailed statistics and technical specifications.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group cursor-pointer">
+                    <div class="bg-gradient-to-br from-purple-400 to-pink-400 h-64 rounded-xl mb-4 flex items-center justify-center text-6xl group-hover:scale-105 transition-transform">
+                        ☕
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Java Applications</h3>
+                    <p class="text-white/80 mb-4">Various Java projects demonstrating OOP concepts</p>
+                    <div class="text-sm text-white/60">
+                        <div>📊 Lines of Code: 2,500+</div>
+                        <div>🛠️ Technologies: Java, Swing, JDBC</div>
+                        <div>⭐ Complexity: Advanced</div>
+                    </div>
+                </div>
+                
+                <div class="group cursor-pointer" onclick="toggleChat()">
+                    <div class="bg-gradient-to-br from-blue-400 to-cyan-400 h-64 rounded-xl mb-4 flex items-center justify-center text-6xl group-hover:scale-105 transition-transform">
+                        💬
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Secure Chat Application</h3>
+                    <p class="text-white/80 mb-4">Real-time messaging with encryption</p>
+                    <div class="text-sm text-white/60">
+                        <div>📊 Lines of Code: 1,800+</div>
+                        <div>🛠️ Technologies: JavaScript, WebSocket</div>
+                        <div>⭐ Features: Encryption, Real-time</div>
+                    </div>
+                    
+                    <!-- Chat Application Container -->
+                    <div id="chat-container" class="hidden mt-4 p-4 rounded-lg card-bg" style="background-color: var(--card-bg);">
+                        <div class="rounded-lg shadow-lg max-w-md mx-auto card-bg" style="background-color: var(--card-bg);"
+                            <!-- Chat Header -->
+                            <div class="bg-blue-600 text-white p-4 rounded-t-lg flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center text-sm">🔒</div>
+                                    <div>
+                                        <h3 class="font-semibold">SecureChat</h3>
+                                        <p class="text-xs text-blue-200">End-to-end encrypted</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                    <span class="text-xs">Online</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Chat Messages -->
+                            <div id="chat-messages" class="h-64 overflow-y-auto p-4 space-y-3" style="background-color: var(--bg-color);"
+                                <div class="flex justify-start">
+                                    <div class="bg-white p-3 rounded-lg shadow-sm max-w-xs">
+                                        <p class="text-sm text-gray-800">Welcome to SecureChat! Your messages are encrypted.</p>
+                                        <p class="text-xs text-gray-500 mt-1">System • 10:30 AM</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <div class="bg-blue-600 text-white p-3 rounded-lg shadow-sm max-w-xs">
+                                        <p class="text-sm">Hello! Testing the secure chat.</p>
+                                        <p class="text-xs text-blue-200 mt-1">You • 10:31 AM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chat Input -->
+                            <div class="p-4 border-t rounded-b-lg" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                                <div class="flex space-x-2">
+                                    <input 
+                                        type="text" 
+                                        id="chat-input" 
+                                        placeholder="Type a secure message..." 
+                                        class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm form-input"
+                                        style="background-color: var(--card-bg); color: var(--text-color); border-color: var(--border-color);"
+                                        onkeypress="handleChatKeyPress(event)"
+                                    >
+                                    <button 
+                                        onclick="sendMessage()" 
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                                    >
+                                        📤
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between mt-2 text-xs" style="color: var(--text-color); opacity: 0.6;">
+                                    <span>🔐 Messages are encrypted</span>
+                                    <span id="typing-indicator" class="hidden text-blue-600">Typing...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group cursor-pointer" onclick="toggleGame()">
+                    <div class="bg-gradient-to-br from-teal-400 to-blue-400 h-64 rounded-xl mb-4 flex items-center justify-center text-6xl group-hover:scale-105 transition-transform">
+                        🎮
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Interactive Game</h3>
+                    <p class="text-white/80 mb-4">Color-changing orbs game with JavaScript</p>
+                    <div class="text-sm text-white/60">
+                        <div>📊 Lines of Code: 800+</div>
+                        <div>🛠️ Technologies: HTML5 Canvas, JS</div>
+                        <div>⭐ Features: Real-time Physics</div>
+                    </div>
+                    
+                    <!-- Game Container -->
+                    <div id="game-container" class="hidden mt-4 p-4 rounded-lg" style="background-color: var(--card-bg); border: 1px solid var(--border-color);"
+                        <div class="text-center mb-4">
+                            <p class="text-sm mb-2" style="color: var(--text-color);">Use WASD or Arrow Keys to move!</p>
+                            <div class="text-sm" style="color: var(--text-color);">Score: <span id="score">0</span></div>
+                        </div>
+                        <canvas id="gameCanvas" width="400" height="300" class="border-2 mx-auto block bg-black" style="border-color: var(--border-color);"></canvas>
+                        <div class="text-center mt-2">
+                            <button onclick="resetGame()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">Reset Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20" style="background-color: var(--bg-color);">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4" style="color: var(--text-color)">Achievements & Certifications</h2>
+                <p class="max-w-2xl mx-auto" style="color: var(--text-color); opacity: 0.7;">
+                    Recognition and certifications that validate my skills and dedication.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-bg border rounded-xl p-6 text-center card-hover">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">Top Performer</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">Consistently ranked in top 10% of class</p>
+                    <div class="achievement-badge">Academic Excellence</div>
+                </div>
+                
+                <div class="card-bg border rounded-xl p-6 text-center card-hover">
+                    <div class="text-4xl mb-4">☕</div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">Java Certified</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">Oracle Java SE 8 Programmer Certification</p>
+                    <div class="achievement-badge">Oracle Certified</div>
+                </div>
+                
+                <div class="card-bg border rounded-xl p-6 text-center card-hover">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">Design Expert</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">Advanced Canva Design Certification</p>
+                    <div class="achievement-badge">Creative Professional</div>
+                </div>
+                
+                <div class="card-bg border rounded-xl p-6 text-center card-hover">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">Marketing Pro</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">Google Digital Marketing Fundamentals</p>
+                    <div class="achievement-badge">Google Certified</div>
+                </div>
+                
+                <div class="card-bg border rounded-xl p-6 text-center card-hover">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">Innovation Award</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">Best Project Award in College Tech Fest</p>
+                    <div class="achievement-badge">Innovation Leader</div>
+                </div>
+                
+                <div class="card-bg border rounded-xl p-6 text-center card-hover">
+                    <div class="text-4xl mb-4">🌟</div>
+                    <h3 class="text-xl font-semibold mb-2" style="color: var(--text-color)">Leadership</h3>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">Student Council Technical Head</p>
+                    <div class="achievement-badge">Team Leader</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 particle-bg relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">What People Say</h2>
+                <p class="text-white/90 max-w-2xl mx-auto">
+                    Feedback from professors, peers, and project collaborators.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl">
+                        👨‍🏫
+                    </div>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.8;">
+                        "Mohammad consistently demonstrates exceptional problem-solving skills and creativity in his projects. His Java programming abilities are outstanding."
+                    </p>
+                    <div class="font-semibold" style="color: var(--text-color);">Prof. Rajesh Kumar</div>
+                    <div class="text-xs" style="color: var(--text-color); opacity: 0.6;">Computer Science Department</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl">
+                        👥
+                    </div>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.8;">
+                        "Working with Toushif on group projects has been amazing. He brings both technical expertise and creative design thinking to every challenge."
+                    </p>
+                    <div class="font-semibold" style="color: var(--text-color);">Mohammad Hammad</div>
+                    <div class="text-xs" style="color: var(--text-color); opacity: 0.6;">Classmate & Project Partner</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="w-16 h-16 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl">
+                        💼
+                    </div>
+                    <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.8;">
+                        "Mohammad's digital marketing campaigns showed real understanding of modern marketing principles. His creative approach is impressive."
+                    </p>
+                    <div class="font-semibold" style="color: var(--text-color);">Amit Patel</div>
+                    <div class="text-xs" style="color: var(--text-color); opacity: 0.6;">Marketing Mentor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Blog Section -->
+    <section id="blog" class="py-20" style="background-color: var(--bg-color);">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4" style="color: var(--text-color)">Technical Blog</h2>
+                <p class="max-w-2xl mx-auto" style="color: var(--text-color); opacity: 0.7;">
+                    Sharing knowledge and insights about programming, design, and technology trends.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="blog-card">
+                    <div class="bg-gradient-to-br from-purple-400 to-pink-400 h-48 flex items-center justify-center text-4xl text-white">
+                        ☕
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs mb-2" style="color: var(--primary-color);">PROGRAMMING</div>
+                        <h3 class="text-lg font-semibold mb-2" style="color: var(--text-color);">
+                            Mastering Java OOP Concepts
+                        </h3>
+                        <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">
+                            A comprehensive guide to understanding Object-Oriented Programming principles in Java with practical examples.
+                        </p>
+                        <div class="flex items-center justify-between text-xs" style="color: var(--text-color); opacity: 0.6;">
+                            <span>5 min read</span>
+                            <span>May 15, 2025</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="bg-gradient-to-br from-blue-400 to-cyan-400 h-48 flex items-center justify-center text-4xl text-white">
+                        🎨
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs mb-2" style="color: var(--primary-color);">DESIGN</div>
+                        <h3 class="text-lg font-semibold mb-2" style="color: var(--text-color);">
+                            Modern UI/UX Design Principles
+                        </h3>
+                        <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">
+                            Exploring the latest trends in user interface design and how to create engaging user experiences.
+                        </p>
+                        <div class="flex items-center justify-between text-xs" style="color: var(--text-color); opacity: 0.6;">
+                            <span>7 min read</span>
+                            <span>Apr 12, 2025</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="bg-gradient-to-br from-green-400 to-emerald-400 h-48 flex items-center justify-center text-4xl text-white">
+                        📊
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs mb-2" style="color: var(--primary-color);">MARKETING</div>
+                        <h3 class="text-lg font-semibold mb-2" style="color: var(--text-color);">
+                            Digital Marketing in 2024
+                        </h3>
+                        <p class="text-sm mb-4" style="color: var(--text-color); opacity: 0.7;">
+                            Key strategies and tools for effective digital marketing campaigns in the modern landscape.
+                        </p>
+                        <div class="flex items-center justify-between text-xs" style="color: var(--text-color); opacity: 0.6;">
+                            <span>6 min read</span>
+                            <span>Feb 10, 2025</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company-Specific Sections -->
+    <section class="py-20 geometric-bg relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Why Choose Me?</h2>
+                <p class="text-white/90 max-w-2xl mx-auto">
+                    Tailored value propositions for different types of companies and roles.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="company-section">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-4">🏢</div>
+                        <h3 class="text-xl font-bold" style="color: var(--text-color);">For Tech Companies</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm" style="color: var(--text-color); opacity: 0.8;">
+                        <li>✅ Strong foundation in Java and software development</li>
+                        <li>✅ Experience with modern development practices</li>
+                        <li>✅ Problem-solving mindset with algorithmic thinking</li>
+                        <li>✅ Continuous learning and adaptation to new technologies</li>
+                        <li>✅ Portfolio of working applications and projects</li>
+                    </ul>
+                </div>
+                
+                <div class="company-section">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-4">🎨</div>
+                        <h3 class="text-xl font-bold" style="color: var(--text-color);">For Creative Agencies</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm" style="color: var(--text-color); opacity: 0.8;">
+                        <li>✅ Advanced Canva design skills and creative thinking</li>
+                        <li>✅ Understanding of visual design principles</li>
+                        <li>✅ Digital marketing campaign experience</li>
+                        <li>✅ Ability to bridge technology and creativity</li>
+                        <li>✅ Portfolio showcasing design and technical skills</li>
+                    </ul>
+                </div>
+                
+                <div class="company-section">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-4">📊</div>
+                        <h3 class="text-xl font-bold" style="color: var(--text-color);">For Marketing Companies</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm" style="color: var(--text-color); opacity: 0.8;">
+                        <li>✅ Digital marketing knowledge and practical experience</li>
+                        <li>✅ Technical skills to implement marketing automation</li>
+                        <li>✅ Creative content creation abilities</li>
+                        <li>✅ Understanding of data-driven marketing approaches</li>
+                        <li>✅ Social media and brand promotion expertise</li>
+                    </ul>
+                </div>
+                
+                <div class="company-section">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl mr-4">🚀</div>
+                        <h3 class="text-xl font-bold" style="color: var(--text-color);">For Startups</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm" style="color: var(--text-color); opacity: 0.8;">
+                        <li>✅ Versatile skill set covering multiple domains</li>
+                        <li>✅ Ability to wear multiple hats and adapt quickly</li>
+                        <li>✅ Cost-effective solution with diverse capabilities</li>
+                        <li>✅ Entrepreneurial mindset and innovation focus</li>
+                        <li>✅ Ready to contribute from day one</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20" style="background-color: var(--bg-color);">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-6" style="color: var(--text-color)">Let's Connect</h2>
+                <p class="text-xl mb-8" style="color: var(--text-color); opacity: 0.7;">
+                    Ready to discuss opportunities? Send me a message!
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-6" style="color: var(--text-color)">Get In Touch</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="text-2xl mr-4">📧</div>
+                            <div>
+                                <div class="font-semibold" style="color: var(--text-color);">Email</div>
+                                <div style="color: var(--text-color); opacity: 0.7;">mdtoushif173@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="text-2xl mr-4">📱</div>
+                            <div>
+                                <div class="font-semibold" style="color: var(--text-color);">Phone</div>
+                                <div style="color: var(--text-color); opacity: 0.7;">+91 8541008670</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="text-2xl mr-4">🌍</div>
+                            <div>
+                                <div class="font-semibold" style="color: var(--text-color);">Location</div>
+                                <div style="color: var(--text-color); opacity: 0.7;">Kolkata, West Bengal</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-semibold mb-4" style="color: var(--text-color);">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.instagram.com/noisy__boy__06?igsh=YWcybTBvaGl6YWJy" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                🅾
+                            </a>
+                            <a href="https://x.com/Md_Toushif11?t=K0psu-G-yde9WQlxQVCmCA&s=09" class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                𝕏
+                            </a>
+                            <a href="https://www.linkedin.com/in/mohammad-toushif-197ab1277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="w-10 h-10 bg-blue-800 text-white rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors">
+                                🇮🇳
+                            </a>
+                            <a href=" https://github.com/Toushif121" class="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors">
+                                👨🏻‍💻
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 class="text-xl font-bold mb-6" style="color: var(--text-color);">Send Message</h3>
+                    <form id="contact-form" onsubmit="submitContactForm(event)">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2" style="color: var(--text-color);">Name</label>
+                            <input type="text" class="form-input" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2" style="color: var(--text-color);">Email</label>
+                            <input type="email" class="form-input" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2" style="color: var(--text-color);">Company</label>
+                            <input type="text" class="form-input" placeholder="Your Company (Optional)">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium mb-2" style="color: var(--text-color);">Message</label>
+                            <textarea class="form-input h-32 resize-none" placeholder="Tell me about the opportunity..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                            Send Message 📤
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4" style="color: var(--primary-color);">MT</div>
+                    <p class="text-gray-400 text-sm">
+                        Engineering student passionate about technology, creativity, and innovation.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
+                        <li><a href="#achievements" class="hover:text-white transition-colors">Achievements</a></li>
+                        <li><a href="#blog" class="hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Skills</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>Java Programming</li>
+                        <li>Digital Marketing</li>
+                        <li>Creative Design</li>
+                        <li>Web Development</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>📧 mdtoushif173@gmail.com</li>
+                        <li>📱 +91 8541008670</li>
+                        <li>🌍 Kolkata, West Bengal</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 Mohammad Toushif. All rights reserved. Made with ❤️ and passion for technology.</p>
+                <p class="mt-2">Portfolio views: <span id="footer-visitor-count">1,247</span> | Last updated: April 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global Variables
+        let currentTheme = 'light';
+        let visitorCount = 1247;
+        let quizData = [
+            {
+                question: "What is the correct way to declare a variable in Java?",
+                options: ["int x = 5;", "variable x = 5;", "x = 5;", "declare x = 5;"],
+                correct: 0
+            },
+            {
+                question: "Which keyword is used to create a class in Java?",
+                options: ["create", "class", "new", "define"],
+                correct: 1
+            },
+            {
+                question: "What does OOP stand for?",
+                options: ["Object Oriented Programming", "Only One Program", "Open Office Program", "Optimal Object Processing"],
+                correct: 0
+            },
+            {
+                question: "Which method is the entry point of a Java program?",
+                options: ["start()", "begin()", "main()", "run()"],
+                correct: 2
+            },
+            {
+                question: "What is encapsulation in Java?",
+                options: ["Hiding implementation details", "Creating multiple classes", "Using loops", "Declaring variables"],
+                correct: 0
+            }
+        ];
+        let currentQuestion = 0;
+        let quizScore = 0;
+        let selectedAnswer = -1;
+
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progress-bar').style.width = scrollPercent + '%';
+        });
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                currentTheme = 'dark';
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                currentTheme = 'light';
+            }
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Profile Image Functions
+        function showProfileFallback() {
+            document.getElementById('profile-image').style.display = 'none';
+            document.getElementById('profile-fallback').classList.remove('hidden');
+        }
+
+        function showImageInstructions() {
+            alert(`📸 How to Add Your Profile Picture:
+
+
+
+🎯
+
+The placeholder will automatically switch to your photo once you update the URL.`);
+        }
+
+        // Download Resume
+        function downloadResume() {
+            // Create a sample resume content
+            const resumeContent = `
+MOHAMMAD TOUSHIF
+Engineering Student & Tech Enthusiast
+
+CONTACT INFORMATION
+Email: toushif@example.com
+Phone: +91 XXXXX XXXXX
+Location: Kolkata, West Bengal
+
+EDUCATION
+B.Tech in Electronics & Communication Engineering
+Budge Budge Institute of Technology, Kolkata (2022 - Present)
+
+Diploma in Computer Science & Engineering
+Brainware University, Barasat (2019 - 2022)
+
+SKILLS
+• Java Programming (Advanced)
+• Digital Marketing (Intermediate)
+• Creative Design with Canva (Advanced)
+• Data Structures & Algorithms (Intermediate)
+• Web Development (HTML, CSS, JavaScript)
+
+PROJECTS
+• Secure Chat Application with Encryption
+• Interactive Game Development
+• Smart Home Automation System
+• Java-based Applications
+
+ACHIEVEMENTS
+• Oracle Java SE 8 Programmer Certification
+• Top 10% Academic Performance
+• Best Project Award in College Tech Fest
+• Google Digital Marketing Fundamentals
+
+INTERESTS
+Cricket, Badminton, Technology Innovation
+            `;
+            
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Mohammad_Toushif_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('📄 Resume downloaded! (This is a demo - in real implementation, this would download a proper PDF resume)');
+        }
+
+        // Quiz Functions
+        function selectAnswer(optionIndex) {
+            selectedAnswer = optionIndex;
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === optionIndex) {
+                    option.style.borderColor = 'var(--primary-color)';
+                    option.style.background = 'rgba(102, 126, 234, 0.1)';
+                } else {
+                    option.style.borderColor = 'var(--border-color)';
+                    option.style.background = 'var(--card-bg)';
+                }
+            });
+            
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (selectedAnswer === -1) return;
+            
+            const options = document.querySelectorAll('.quiz-option');
+            const correctAnswer = quizData[currentQuestion].correct;
+            
+            // Show correct/incorrect answers
+            options.forEach((option, index) => {
+                if (index === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === selectedAnswer && selectedAnswer !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedAnswer === correctAnswer) {
+                quizScore++;
+            }
+            
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showQuizResults();
+                }
+            }, 1500);
+        }
+
+        function loadQuestion() {
+            const questionData = quizData[currentQuestion];
+            document.getElementById('question-number').textContent = currentQuestion + 1;
+            document.getElementById('question-text').textContent = questionData.question;
+            
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            selectedAnswer = -1;
+            document.getElementById('next-btn').disabled = true;
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-content').classList.add('hidden');
+            document.getElementById('quiz-results').classList.remove('hidden');
+            document.getElementById('final-score').textContent = quizScore;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            quizScore = 0;
+            selectedAnswer = -1;
+            document.getElementById('quiz-content').classList.remove('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+            loadQuestion();
+        }
+
+        // Code Editor Functions
+        function runCode() {
+            const code = document.getElementById('code-input').value;
+            const output = document.getElementById('code-output');
+            
+            // Simulate code execution (in a real implementation, this would use a proper code execution service)
+            output.innerHTML = '<div class="text-yellow-400">Compiling...</div>';
+            
+            setTimeout(() => {
+                if (code.includes('System.out.println')) {
+                    const lines = code.split('\n');
+                    let result = '';
+                    
+                    lines.forEach(line => {
+                        if (line.includes('System.out.println')) {
+                            const match = line.match(/System\.out\.println\s*\(\s*"([^"]*)"\s*\)/);
+                            if (match) {
+                                result += match[1] + '\n';
+                            } else if (line.includes('+')) {
+                                // Simple string concatenation simulation
+                                if (line.includes('"Hello, World!"')) {
+                                    result += 'Hello, World!\n';
+                                } else if (line.includes('name')) {
+                                    result += 'Developer: Mohammad Toushif\n';
+                                } else if (line.includes('years')) {
+                                    result += 'Experience: 3 years\n';
+                                }
+                            }
+                        }
+                    });
+                    
+                    output.innerHTML = `<div class="text-green-400">${result || 'Program executed successfully!'}</div>`;
+                } else {
+                    output.innerHTML = '<div class="text-green-400">Program compiled successfully!\nNo output to display.</div>';
+                }
+            }, 1000);
+        }
+
+        // Contact Form
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            // Simulate form submission
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('✅ Message sent successfully! I\'ll get back to you soon.\n\n(This is a demo - in real implementation, this would send an actual email)');
+                event.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Chat Application Functions
+        let chatActive = false;
+        
+        function toggleChat() {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.classList.toggle('hidden');
+            
+            if (!chatContainer.classList.contains('hidden') && !chatActive) {
+                chatActive = true;
+                setTimeout(() => {
+                    addMessage("Hey! 👋 I'm Alex, Mohammad's project demo contact. Try chatting with me!", 'contact');
+                }, 1000);
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                showTypingIndicator();
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const response = generateResponse(message.toLowerCase());
+                    addMessage(response, 'contact');
+                }, Math.random() * 2000 + 1000);
+            }
+        }
+
+        function generateResponse(message) {
+            const responses = {
+                'hello': "Hello there! 😊 How are you doing today?",
+                'hi': "Hi! Great to meet you! What brings you here?",
+                'mohammad': "Mohammad is an amazing developer! He built this chat with encryption features. 🔐",
+                'java': "Mohammad is really skilled in Java programming! He's Oracle certified too.",
+                'project': "This portfolio showcases some incredible projects. Have you seen the game?",
+                'default': "That's interesting! Tell me more about that! 🤔"
+            };
+            
+            for (let key in responses) {
+                if (message.includes(key)) {
+                    return responses[key];
+                }
+            }
+            
+            return responses.default;
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            if (sender === 'user') {
+                messageDiv.className = 'flex justify-end';
+                messageDiv.innerHTML = `
+                    <div class="bg-blue-600 text-white p-3 rounded-lg shadow-sm max-w-xs">
+                        <p class="text-sm">${text}</p>
+                        <p class="text-xs text-blue-200 mt-1">You • ${currentTime}</p>
+                    </div>
+                `;
+            } else {
+                messageDiv.className = 'flex justify-start';
+                messageDiv.innerHTML = `
+                    <div class="p-3 rounded-lg shadow-sm max-w-xs" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                        <p class="text-sm" style="color: var(--text-color);">${text}</p>
+                        <p class="text-xs mt-1" style="color: var(--text-color); opacity: 0.6;">Contact • ${currentTime}</p>
+                    </div>
+                `;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typing-indicator').classList.remove('hidden');
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typing-indicator').classList.add('hidden');
+        }
+
+        // Game Functions
+        let gameRunning = false;
+        let canvas, ctx;
+        let player = { x: 50, y: 50, size: 20, speed: 3 };
+        let goal = { x: 350, y: 250, size: 25 };
+        let orbs = [];
+        let score = 0;
+        let keys = {};
+
+        function toggleGame() {
+            const gameContainer = document.getElementById('game-container');
+            gameContainer.classList.toggle('hidden');
+            
+            if (!gameContainer.classList.contains('hidden')) {
+                initGame();
+            } else {
+                gameRunning = false;
+            }
+        }
+
+        function initGame() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+            
+            player = { x: 50, y: 50, size: 20, speed: 3 };
+            goal = { x: 350, y: 250, size: 25 };
+            orbs = [];
+            score = 0;
+            updateScore();
+            
+            for (let i = 0; i < 8; i++) {
+                orbs.push({
+                    x: Math.random() * (canvas.width - 30) + 15,
+                    y: Math.random() * (canvas.height - 30) + 15,
+                    size: Math.random() * 15 + 10,
+                    dx: (Math.random() - 0.5) * 4,
+                    dy: (Math.random() - 0.5) * 4,
+                    hue: Math.random() * 360
+                });
+            }
+            
+            gameRunning = true;
+            gameLoop();
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            
+            updateGame();
+            drawGame();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function updateGame() {
+            if (keys['w'] || keys['ArrowUp']) player.y -= player.speed;
+            if (keys['s'] || keys['ArrowDown']) player.y += player.speed;
+            if (keys['a'] || keys['ArrowLeft']) player.x -= player.speed;
+            if (keys['d'] || keys['ArrowRight']) player.x += player.speed;
+            
+            player.x = Math.max(player.size/2, Math.min(canvas.width - player.size/2, player.x));
+            player.y = Math.max(player.size/2, Math.min(canvas.height - player.size/2, player.y));
+            
+            orbs.forEach(orb => {
+                orb.x += orb.dx;
+                orb.y += orb.dy;
+                orb.hue += 2;
+                
+                if (orb.x <= orb.size/2 || orb.x >= canvas.width - orb.size/2) orb.dx *= -1;
+                if (orb.y <= orb.size/2 || orb.y >= canvas.height - orb.size/2) orb.dy *= -1;
+                
+                const dist = Math.sqrt((player.x - orb.x) ** 2 + (player.y - orb.y) ** 2);
+                if (dist < (player.size + orb.size) / 2) {
+                    resetPlayerPosition();
+                }
+            });
+            
+            const goalDist = Math.sqrt((player.x - goal.x) ** 2 + (player.y - goal.y) ** 2);
+            if (goalDist < (player.size + goal.size) / 2) {
+                score += 10;
+                updateScore();
+                resetPlayerPosition();
+                goal.x = Math.random() * (canvas.width - goal.size) + goal.size/2;
+                goal.y = Math.random() * (canvas.height - goal.size) + goal.size/2;
+            }
+        }
+
+        function drawGame() {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillRect(player.x - player.size/2, player.y - player.size/2, player.size, player.size);
+            
+            ctx.fillStyle = '#10b981';
+            ctx.beginPath();
+            ctx.arc(goal.x, goal.y, goal.size/2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            orbs.forEach(orb => {
+                ctx.fillStyle = `hsl(${orb.hue}, 70%, 60%)`;
+                ctx.beginPath();
+                ctx.arc(orb.x, orb.y, orb.size/2, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function resetPlayerPosition() {
+            player.x = 50;
+            player.y = 50;
+        }
+
+        function resetGame() {
+            if (gameRunning) {
+                initGame();
+            }
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            keys[e.key.toLowerCase()] = true;
+            keys[e.code] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key.toLowerCase()] = false;
+            keys[e.code] = false;
+        });
+
+        // Floating Code Animation
+        function createFloatingCode() {
+            const floatingContainer = document.getElementById('floating-elements');
+            if (!floatingContainer) return;
+            
+            const codeSnippets = [
+                'public class Developer {',
+                '  String name = "Mohammad";',
+                '  void code() {',
+                '    System.out.println("Hello World!");',
+                '  }',
+                '}',
+                'import java.util.*;',
+                'List<String> skills = new ArrayList<>();',
+                'skills.add("Java");',
+                'skills.add("JavaScript");'
+            ];
+            
+            function addFloatingCode() {
+                const codeElement = document.createElement('div');
+                codeElement.className = 'floating-code';
+                codeElement.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                codeElement.style.left = Math.random() * 90 + '%';
+                codeElement.style.animationDelay = Math.random() * 5 + 's';
+                
+                floatingContainer.appendChild(codeElement);
+                
+                setTimeout(() => {
+                    if (codeElement.parentNode) {
+                        codeElement.parentNode.removeChild(codeElement);
+                    }
+                }, 15000);
+            }
+            
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => addFloatingCode(), i * 2000);
+            }
+            
+            setInterval(addFloatingCode, 3000);
+        }
+
+        // Visitor Counter Animation
+        function animateVisitorCounter() {
+            const counter = document.getElementById('visitor-count');
+            const footerCounter = document.getElementById('footer-visitor-count');
+            
+            setInterval(() => {
+                if (Math.random() < 0.1) { // 10% chance every interval
+                    visitorCount++;
+                    counter.textContent = visitorCount.toLocaleString();
+                    footerCounter.textContent = visitorCount.toLocaleString();
+                }
+            }, 5000);
+        }
+
+        // GitHub Stats Animation
+        function animateGitHubStats() {
+            const stats = {
+                repos: { element: 'github-repos', current: 0, target: 23 },
+                commits: { element: 'github-commits', current: 0, target: 156 },
+                stars: { element: 'github-stars', current: 0, target: 42 },
+                followers: { element: 'github-followers', current: 0, target: 89 }
+            };
+            
+            Object.values(stats).forEach(stat => {
+                const increment = stat.target / 50;
+                const interval = setInterval(() => {
+                    stat.current += increment;
+                    if (stat.current >= stat.target) {
+                        stat.current = stat.target;
+                        clearInterval(interval);
+                    }
+                    document.getElementById(stat.element).textContent = Math.floor(stat.current);
+                }, 50);
+            });
+        }
+
+        // Mobile Menu Functions
+        let mobileMenuOpen = false;
+        
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const hamburgerLines = hamburgerIcon.querySelectorAll('div');
+            
+            mobileMenuOpen = !mobileMenuOpen;
+            
+            if (mobileMenuOpen) {
+                // Open menu
+                mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+                
+                // Animate hamburger to X
+                hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                hamburgerLines[1].style.opacity = '0';
+                hamburgerLines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+                
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+            } else {
+                closeMobileMenu();
+            }
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const hamburgerLines = hamburgerIcon.querySelectorAll('div');
+            
+            mobileMenuOpen = false;
+            
+            // Close menu
+            mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+            mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+            
+            // Reset hamburger icon
+            hamburgerLines[0].style.transform = 'none';
+            hamburgerLines[1].style.opacity = '1';
+            hamburgerLines[2].style.transform = 'none';
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const nav = document.querySelector('nav');
+            if (mobileMenuOpen && !nav.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close mobile menu on window resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && mobileMenuOpen) {
+                closeMobileMenu();
+            }
+        });
+
+        // Enhanced Navigation Functions
+        let quickActionsOpen = false;
+        let visitedSections = new Set();
+        
+        // Live Time Update
+        function updateLiveTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: true, 
+                hour: 'numeric', 
+                minute: '2-digit',
+                timeZone: 'Asia/Kolkata'
+            });
+            const element = document.getElementById('live-time');
+            if (element) {
+                element.textContent = `⏰ ${timeString} IST`;
+            }
+        }
+        
+        // Quick Actions Menu
+        function toggleQuickActions() {
+            const menu = document.getElementById('quick-actions-menu');
+            quickActionsOpen = !quickActionsOpen;
+            
+            if (quickActionsOpen) {
+                menu.classList.add('show');
+            } else {
+                menu.classList.remove('show');
+            }
+        }
+        
+        // Share Portfolio Function
+        function sharePortfolio() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Mohammad Toushif - Portfolio',
+                    text: 'Check out Mohammad Toushif\'s amazing portfolio - Engineering Student & Tech Enthusiast',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('🔗 Portfolio link copied to clipboard!');
+                });
+            }
+            toggleQuickActions();
+        }
+        
+        // Schedule Call Function
+        function scheduleCall() {
+            const calendlyUrl = 'https://calendly.com/mohammad-toushif'; // Replace with actual Calendly link
+            alert('📅 Scheduling feature coming soon!\n\nFor now, please email me at mdtoushif173@gmail.com to schedule a call.\n\n(In a real implementation, this would open Calendly or similar scheduling tool)');
+            toggleQuickActions();
+        }
+        
+        // Enhanced Navigation Active State with Progress Tracking
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Add scrolled class to nav
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollY >= (sectionTop - 200)) {
+                    current = sectionId;
+                    visitedSections.add(sectionId);
+                }
+            });
+
+            navLinks.forEach(link => {
+                const sectionId = link.getAttribute('data-section');
+                link.classList.remove('active');
+                
+                // Mark as visited
+                if (visitedSections.has(sectionId)) {
+                    link.classList.add('visited');
+                }
+                
+                // Mark as active
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Close quick actions when clicking outside
+        document.addEventListener('click', (e) => {
+            const quickActionsContainer = e.target.closest('.relative');
+            if (!quickActionsContainer && quickActionsOpen) {
+                toggleQuickActions();
+            }
+        });
+        
+        // Smooth scroll enhancement for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 100; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add visited indicator
+                    visitedSections.add(targetId);
+                    link.classList.add('visited');
+                }
+            });
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingCode();
+            animateVisitorCounter();
+            
+            // Initialize live time
+            updateLiveTime();
+            setInterval(updateLiveTime, 1000); // Update every second
+            
+            // Animate GitHub stats when about section comes into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateGitHubStats();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            observer.observe(document.getElementById('about'));
+            
+            // Initialize quiz
+            loadQuestion();
+            
+            // Add initial visited section (home)
+            visitedSections.add('home');
+            const homeLink = document.querySelector('.nav-link[data-section="home"]');
+            if (homeLink) {
+                homeLink.classList.add('visited');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9731abc48210b2d6',t:'MTc1NTg1ODM3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
